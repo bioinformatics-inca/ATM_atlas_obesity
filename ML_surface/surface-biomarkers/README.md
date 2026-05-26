@@ -1,13 +1,13 @@
 # surface-biomarkers
 
-`surface-biomarkers` is a Python package for discovering compact surface-marker signatures from single-cell expression data.
+`surface-biomarkers` is a Python package for discovering compact surface-marker signatures from single-nuclei expression data.
 
 It was built from analysis workflows for NKT cells and macrophage states, and turns a cells-by-genes matrix into:
 
 - one-vs-rest machine-learning models for each annotated cluster;
 - per-cluster ROC curves, confusion matrices, SHAP plots and metric tables;
 - compact marker signatures using SHAP and expression direction;
-- heatmaps of cluster-specific SHAP and SHAP x expression scores;
+- heatmaps of cluster-specific SHAP;
 - independent accuracy estimates for small gene panels.
 
 The package is designed for interactive use in Jupyter notebooks, while still providing a command-line interface for reproducible runs.
@@ -37,7 +37,7 @@ plots, metrics, SHAP rankings, marker signatures
 ### Jupyter, simple install
 
 ```python
-%pip install -e "C:/Users/tncri/Documents/surface-biomarkers"
+%pip install -e "ML_surface/surface-biomarkers"
 ```
 
 ### Jupyter, reproducible install
@@ -45,8 +45,8 @@ plots, metrics, SHAP rankings, marker signatures
 Use this when you want to reproduce the exact environment used during development:
 
 ```python
-%pip install -r "C:/Users/tncri/Documents/surface-biomarkers/requirements.txt"
-%pip install -e "C:/Users/tncri/Documents/surface-biomarkers" --no-deps
+%pip install -r "ML_surface/surface-biomarkers/requirements.txt"
+%pip install -e "ML_surface/surface-biomarkers" --no-deps
 ```
 
 Restart the kernel after installation.
@@ -101,11 +101,7 @@ dataset = load_counts_csv(
 
 By default, this keeps only:
 
-```python
-("1 - high confidence", "2 - putative")
-```
-
-and removes proteins whose names contain `Collagen`.
+Removes proteins whose names contain `Collagen`.
 
 To keep all categories from the internal database:
 
@@ -375,16 +371,6 @@ plot_shap_heatmap(
 )
 ```
 
-## Signature Specificity
-
-`validate_signature_specificity()` tests whether each signature scores highest in the expected cluster.
-
-```python
-from surface_biomarkers.signatures import validate_signature_specificity
-
-specificity = validate_signature_specificity(signatures, combined_matrix)
-specificity
-```
 
 ## Independent Accuracy Of Small Panels
 
@@ -484,7 +470,7 @@ src/surface_biomarkers/
   signatures.py    # SHAP ranking, signatures, exclusivity, accuracy
   plots.py         # ROC, confusion matrix, SHAP, heatmaps, panels
   resources/
-    db_surface.csv # internal surface-gene database
+    db_surface.csv # internal surface-gene database from https://wlab.ethz.ch/surfaceome/
 ```
 
 ## Notes
