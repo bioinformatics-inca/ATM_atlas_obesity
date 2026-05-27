@@ -13,7 +13,6 @@ from surface_biomarkers.signatures import (
     discover_signatures,
     evaluate_signatures,
     mean_abs_shap_matrix,
-    validate_signature_specificity,
 )
 from surface_biomarkers.training import TrainingConfig, train_one_vs_rest
 from surface_biomarkers.validation import save_signature_validation_report
@@ -101,7 +100,6 @@ def main(argv: Optional[List[str]] = None) -> int:
         signatures, ranking, exclusivity = discover_signatures(base, args.clusters, config)
         shap_matrix = mean_abs_shap_matrix(base, args.clusters, config)
         combined_matrix = combined_shap_expression_matrix(base, args.clusters, config)
-        specificity = validate_signature_specificity(signatures, combined_matrix)
         accuracy = evaluate_signatures(base, args.clusters, signatures, args.threshold)
 
         with (base / "signatures.json").open("w", encoding="utf-8") as handle:
@@ -115,7 +113,6 @@ def main(argv: Optional[List[str]] = None) -> int:
         ).to_csv(base / "signatures.csv", index=False)
         ranking.to_csv(base / "gene_ranking_by_cluster.csv", index=False)
         exclusivity.to_csv(base / "gene_exclusivity.csv", index=False)
-        specificity.to_csv(base / "signature_specificity.csv", index=False)
         accuracy.to_csv(base / "signature_accuracy.csv", index=False)
         plot_shap_heatmap(
             shap_matrix,

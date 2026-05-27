@@ -36,12 +36,19 @@ cluster_outputs/
 plots, metrics, SHAP rankings, marker signatures, validation tables, antibody panels
 ```
 
-## Installation
+## Installation From GitHub
+
+Clone the repository and enter the package folder:
+
+```bash
+git clone https://github.com/bioinformatics-inca/ATM_atlas_obesity.git
+cd ATM_atlas_obesity/surface-biomarkers
+```
 
 ### Jupyter, simple install
 
 ```python
-%pip install -e "C:/Users/tncri/Documents/surface-biomarkers"
+%pip install -e .
 ```
 
 ### Jupyter, reproducible install
@@ -49,8 +56,8 @@ plots, metrics, SHAP rankings, marker signatures, validation tables, antibody pa
 Use this when you want to reproduce the exact environment used during development:
 
 ```python
-%pip install -r "C:/Users/tncri/Documents/surface-biomarkers/requirements.txt"
-%pip install -e "C:/Users/tncri/Documents/surface-biomarkers" --no-deps
+%pip install -r requirements.txt
+%pip install -e . --no-deps
 ```
 
 Restart the kernel after installation.
@@ -379,17 +386,6 @@ plot_shap_heatmap(
 )
 ```
 
-## Signature Specificity
-
-`validate_signature_specificity()` tests whether each signature scores highest in the expected cluster.
-
-```python
-from surface_biomarkers.signatures import validate_signature_specificity
-
-specificity = validate_signature_specificity(signatures, combined_matrix)
-specificity
-```
-
 ## Translational Signature Validation
 
 `prioritize_signature_validation()` ranks SHAP-derived signatures for follow-up assays using model evidence, surface-protein evidence and optional Human Protein Atlas antibody metadata.
@@ -645,7 +641,6 @@ signatures.json
 signatures.csv
 gene_ranking_by_cluster.csv
 gene_exclusivity.csv
-signature_specificity.csv
 signature_accuracy.csv
 shap_top_genes_heatmap.svg
 shap_expression_heatmap.svg

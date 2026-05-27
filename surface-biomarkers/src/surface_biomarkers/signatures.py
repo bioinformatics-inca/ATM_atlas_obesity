@@ -198,30 +198,6 @@ def discover_signatures(
     return signatures, pd.concat(rank_tables, ignore_index=True), exclusivity
 
 
-def validate_signature_specificity(
-    signatures: Dict[str, List[str]],
-    score_matrix: pd.DataFrame,
-) -> pd.DataFrame:
-    rows = []
-    for expected, genes in signatures.items():
-        present = [g for g in genes if g in score_matrix.index]
-        if not present:
-            rows.append({"expected": expected, "predicted": None, "exclusivity": 0.0, "match": False})
-            continue
-        signature_score = score_matrix.loc[present].sum(axis=0)
-        ordered = signature_score.sort_values(ascending=False)
-        rows.append({
-            "expected": expected,
-            "predicted": ordered.index[0],
-            "best_value": float(ordered.iloc[0]),
-            "second_best": float(ordered.iloc[1]) if len(ordered) > 1 else 0.0,
-            "exclusivity": float(ordered.iloc[0] - (ordered.iloc[1] if len(ordered) > 1 else 0.0)),
-            "genes": ", ".join(present),
-            "match": expected == ordered.index[0],
-        })
-    return pd.DataFrame(rows)
-
-
 def load_label_mapping(base_dir: Union[str, Path]) -> Dict[str, str]:
     mapping_path = Path(base_dir) / "label_mapping.csv"
     if not mapping_path.exists():

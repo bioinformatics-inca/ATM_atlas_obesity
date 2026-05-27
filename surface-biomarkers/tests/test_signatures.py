@@ -7,7 +7,7 @@ matplotlib.use("Agg")
 from surface_biomarkers.data import filter_gene_list, filter_surface_genes, make_one_vs_rest, sanitize_name
 from surface_biomarkers.panel_design import design_antibody_panel
 from surface_biomarkers.plots import plot_panel_benchmark
-from surface_biomarkers.signatures import calculate_exclusivity, rank_cluster_genes, validate_signature_specificity
+from surface_biomarkers.signatures import calculate_exclusivity, rank_cluster_genes
 from surface_biomarkers.training import _build_training_pipeline, _prefix_param_grid, get_resampler
 from surface_biomarkers.validation import prioritize_signature_validation
 
@@ -54,12 +54,6 @@ def test_exclusivity():
     out = calculate_exclusivity(matrix)
     assert out.iloc[0]["gene"] == "A"
     assert round(out.iloc[0]["exclusivity"], 2) == 0.7
-
-
-def test_signature_specificity():
-    matrix = pd.DataFrame({"Cluster 0": [1.0, 0.1], "Cluster 1": [0.2, 1.0]}, index=["A", "B"])
-    out = validate_signature_specificity({"Cluster 0": ["A"], "Cluster 1": ["B"]}, matrix)
-    assert out["match"].all()
 
 
 def test_training_pipeline_keeps_resampling_inside_cv():
