@@ -2,8 +2,6 @@
 
 `surface-biomarkers` is a Python package for discovering compact surface-marker signatures from single-cell expression data.
 
-It was built from analysis workflows for NKT cells and macrophage states, and turns a cells-by-genes matrix into:
-
 - one-vs-rest machine-learning models for each annotated cluster;
 - per-cluster ROC curves, confusion matrices, SHAP plots and metric tables;
 - compact marker signatures using SHAP and expression direction;
