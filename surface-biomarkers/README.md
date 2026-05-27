@@ -41,7 +41,7 @@ plots, metrics, SHAP rankings, marker signatures, validation tables, antibody pa
 ### Jupyter, simple install
 
 ```python
-%pip install -e "C:/Users/tncri/Documents/surface-biomarkers"
+%pip install -e "/surface-biomarkers"
 ```
 
 ### Jupyter, reproducible install
@@ -49,8 +49,8 @@ plots, metrics, SHAP rankings, marker signatures, validation tables, antibody pa
 Use this when you want to reproduce the exact environment used during development:
 
 ```python
-%pip install -r "C:/Users/tncri/Documents/surface-biomarkers/requirements.txt"
-%pip install -e "C:/Users/tncri/Documents/surface-biomarkers" --no-deps
+%pip install -r "/surface-biomarkers/requirements.txt"
+%pip install -e "/surface-biomarkers" --no-deps
 ```
 
 Restart the kernel after installation.
